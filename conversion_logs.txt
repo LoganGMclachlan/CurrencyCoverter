@@ -1,0 +1,43 @@
+Currancy conversion log
+
+    
+Conversion form gbp to usd
+Amount: 4575
+Rate: 1.21339
+Result: 5551.26773
+Date: 2019-08-05
+    
+    
+Conversion form eur to rub
+Amount: 209
+Rate: 72.29132
+Result: 15108.89
+Date: 2019-08-05
+    
+    
+Conversion from gbp to usd
+Amount: 20
+Rate: 1.21339
+Result: 24.27
+Date: 2019-08-05
+
+    
+Conversion from usd to rub
+Amount: 12
+Rate: 65.32810
+Result: 783.94
+Date: 2019-08-10
+
+    
+Conversion from gbp to usd
+Amount: 12
+Rate: 1.21044
+Result: 14.53
+Date: 2019-08-10
+
+    
+Conversion from usd to eur
+Amount: 12
+Rate: 0.90928
+Result: 10.91
+Date: 2023-05-01
