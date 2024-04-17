@@ -10,12 +10,12 @@ import os
 # class to store conversion data
 class Conversion:
     # initialses an instance
-    def __init__(self,currancy1,currancy2,amount,result=0.0,rate=0.0):
+    def __init__(self,currancy1,currancy2,amount):
         self.currancy1 = currancy1
         self.currancy2 = currancy2
         self.rate = rate
-        self.amount = amount
-        self.result = result
+        self.amount = 0.0
+        self.result = 0.0
 
     # determines the output when instance is called
     def __str__(self):
