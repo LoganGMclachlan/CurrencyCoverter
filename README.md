@@ -1,4 +1,5 @@
 # CurrencyCoverter
-A Python based app that uses an API to get rates to convert one currency amount to another and displays all info to the user
-Will also record all convertions made and save them in a text file.
-The currencies_available file will list all available currencies.
+This python app retrieves conversion data from an API that updates daily. For more info on the API, follow this link to its website: http://www.floatrates.com
+
+By using elements from the tkinter library, a UI is created to accept inputs and display results.
+To convert two currencies, an object is made to store and format its info.
