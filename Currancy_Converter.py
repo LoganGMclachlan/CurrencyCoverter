@@ -9,7 +9,7 @@ import os
 
 # class to store conversion data
 class Conversion:
-    # initialses an instance
+    # class constructor
     def __init__(self,currancy1,currancy2,amount):
         self.currancy1 = currancy1
         self.currancy2 = currancy2
@@ -17,7 +17,7 @@ class Conversion:
         self.amount = 0.0
         self.result = 0.0
 
-    # determines the output when instance is called
+    # method that returns instance data as a formatted string
     def __str__(self):
         return f"""Conversion from {self.currancy1} to {self.currancy2}
 Amount: {self.amount}
@@ -27,20 +27,20 @@ Date: {datetime.utcnow().date()}"""
 
 # --------------------------------------------------------------------------- #
 
-def get_data(conversion):
-    # try except to catch invalid inputs
+# function that fetches conversion data from API
+def get_exchange_data(conversion):
+    error_message = None
     try:
         # gets exchane data for currancy 1
         url = "http://www.floatrates.com/daily/" + conversion.currancy1 + ".json"
         with urlopen(url) as response:
             source = response.read()
 
-        # converts text from url into a python dictonary
+        # parses JOSN data into a python dictonary
         data = json.loads(source)
         # gets the rate of exchange and calculates the resulting amount
         conversion.rate = data[conversion.currancy2]["rate"]
         conversion.result = (conversion.amount * float(conversion.rate))
-        error_message = None
     except urllib.error.URLError:
         error_message = "Could not connect to intenet, please try again later."
     except:
@@ -49,23 +49,20 @@ def get_data(conversion):
 
 
 def save_data(conversion):
-    # gets the path to the currant file
+    # gets the path to logs file
     path = os.path.dirname(os.path.abspath(__file__)) + "\\conversion_logs.txt"
     # reads the data from the text file
     with open(path, "r") as f:
         f_data = f.read()
-    # adds the conversion data to the data from the file
-    f_data +=f"""
-    
-{str(conversion)}
-"""
+    # appends the new conversion data
+    f_data +=f"""\n{str(conversion)}\n"""
     # writes the updated data to the text file
     with open(path, "w") as f:
         f.write(f_data)
 
 
 def output(message):
-    # outputs a message in a text field
+    # creates output window to display message
     output_field = Text(window, width=30,height=6)
     output_field.grid(row=5,column=0)
     output_field.insert(END,message)
@@ -76,21 +73,22 @@ def display_message():
     C1 = C1_input.get().lower()
     C2 = C2_input.get().lower()
     try:
-        amount = int(amount_input.get())
+        amount = float(amount_input.get())
     except:
-        output("Please input a valid amount.")
+        output("Please input a valid amount (No text or symbols).")
         return
-    # creates instance of Conversion class using user inputs
-    conversion = Conversion(C1,C2,amount)
-    # gets the exchange rate data and catches any errors
-    error = get_data(conversion)
 
     # checks if amount input is valid
     if conversion.amount <= 0:
-        error = "Invalid amount"
+        output("Invalid amount")
+        return
+        
+    # creates instance of Conversion class using user inputs
+    conversion = Conversion(C1,C2,amount)
+    # gets the exchange rate data and catches any errors
+    error = get_exchange_data(conversion)
 
-
-    # outputs conversion data if no errors
+    # outputs conversion data or any errors
     if error:
         output(error)
     else:
